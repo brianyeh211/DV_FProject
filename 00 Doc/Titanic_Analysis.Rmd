@@ -1,51 +1,97 @@
 ---
-title: DV_RProject2
+title: DV_TProject1
 author: Brian Yeh, Valentina Chen
 output: html_document
 ---
 
 ```{r echo=FALSE, message=FALSE}
-setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_RProject2/00 Doc")
+#setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_TProject1")
 require("jsonlite")
 require("RCurl")
 require(extrafont)
-require(tidyr)
-require(dplyr)
-require(ggplot2)
 
-  
+require("ggplot2")
+
 ```
-
-###Summary of dataframe  
-SQL Query: select * from titanic
+#Dataset
+###Counts of births by Age of Mother
 ```{r echo=FALSE}
-source("../01 Data/Dataframes_All.R", echo = TRUE)
+source("../01 Data/Dataframes_Births.R", echo = TRUE)
 summary(df)
 ```
-  
-###Subset of dataframe: White Males with traffic citations who drive BMW's
+
+##Barchart
+###Age vs Count for all years (1960-2013)
 ```{r}
-df.sub <- subset(df, GENDER == "M" & RACE == "WHITE" & VIOLATION_TYPE == "Citation" & MAKE == "BMW")
-df.sub
+source("./01 Data/Dataframes_BarChart.R", echo = TRUE)
+ggplot() + 
+  coord_cartesian() + 
+  scale_x_discrete() +
+  scale_y_continuous(breaks=seq(0,7000000,1000000)) +
+  labs(title='Births Cumulative - By Age') +
+  labs(x=paste("AGE"), y=paste("COUNT")) +
+  layer(data=df1, 
+        mapping=aes(x=AGE, y=COUNT), 
+        stat = "identity",
+        stat_params=list(), 
+        geom="bar",
+        geom_params=list(),
+        position=position_identity()
+  )
 ```
-  
-###What percentages of Warnings and Citations are given out to each race?
+![AgeVCount](../AgeVCount.jpg)
+
+##ScatterPlot
+###Year vs Count for all age groups
 ```{r}
-
-df %>%  filter(VIOLATION_TYPE %in% c("Citation", "Warning")) %>%  group_by(VIOLATION_TYPE, RACE) %>% summarise(count = n()) %>% arrange(VIOLATION_TYPE, count) %>% group_by(VIOLATION_TYPE) %>% mutate(totEach = sum(count)) %>% group_by(RACE, add=TRUE) %>% mutate(percentage_of_total=round(100*count/totEach,2)) %>% ggplot(., aes(x= RACE, y = percentage_of_total, color = RACE, fill=RACE)) + geom_bar(stat = "identity") + facet_wrap(~VIOLATION_TYPE) +theme(axis.text.x = element_blank(), axis.ticks = element_blank())
-
-
+source("../01 Data/Dataframes_ScatterPlot.R", echo = TRUE)
+ggplot() + 
+  coord_cartesian() + 
+  scale_x_continuous() +
+  scale_y_continuous() +
+  labs(x="YEAR", y=paste("COUNT")) +
+  layer(data=df, 
+        mapping=aes(x=as.numeric(as.character(YEAR)), y=COUNT, color=AGE), 
+        stat_params=list(), 
+        geom="point",
+        geom_params=list(), 
+        #position=position_identity()
+        position=position_jitter(width=0.3, height=0)
+  )
 ```
+![YearVCount](../YearVCount.jpg)
 
-###Which subagency gives out the most Warnings?
+##CrossTab
+###Year vs Age
 ```{r}
-df %>% filter(VIOLATION_TYPE %in% c("Warning"), VEHICLETYPE %in% c("02 - Automobile")) %>% group_by(VEHICLETYPE, SUBAGENCY) %>% summarise(count = n()) %>% arrange(count) %>% ggplot(., aes(x = VEHICLETYPE, y = count, color = SUBAGENCY, fill = SUBAGENCY)) + geom_bar(position = "dodge", stat = "identity") + scale_y_continuous()+ facet_grid(~VEHICLETYPE) + theme(text = element_text(size=12), axis.text.x = element_blank())
-
+source("../01 Data/Dataframes_CrossTabs.R", echo = TRUE)
+ggplot() + 
+  coord_cartesian() +
+  scale_x_discrete() +
+  scale_y_discrete() +
+  labs(x=paste("AGE"), y=paste("DECADE")) +
+  layer(data=df, 
+        mapping=aes(x=AGE, y=DECADE, label=COUNT), 
+        stat="identity", 
+        stat_params=list(), 
+        geom="text",
+        geom_params=list(colour="black", size = 3), 
+        position=position_identity()
+  ) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)
+  ) +
+  layer(data=df, 
+        mapping=aes(x=AGE, y=DECADE, fill=DECADE), 
+        stat="identity", 
+        stat_params=list(), 
+        geom="tile",
+        geom_params=list(alpha=0.50), 
+        position=position_identity()
+  )
 ```
+![YearVAge](../YearVAge.jpg)
 
-###Which Gender is more likely to get off with a warning?
-```{r}
-df %>%  filter(VIOLATION_TYPE %in% c("Citation", "Warning"), GENDER %in% c("F", "M")) %>%  group_by(VIOLATION_TYPE, GENDER) %>% summarise(count = n()) %>% arrange(VIOLATION_TYPE, count) %>% group_by(VIOLATION_TYPE) %>% mutate(totEach = sum(count)) %>% group_by(GENDER, add=TRUE) %>% mutate(percentage_of_total=round(100*count/totEach,2)) %>% ggplot(., aes(x=VIOLATION_TYPE, y = percentage_of_total, fill= GENDER)) + geom_bar(stat = "identity")
-
-```
+##Blending Data
+###Count of Babies born vs Growth rate of Disposible Income (Joined on Year)
+![BlendingData](../BlendingData.jpg)
 
