@@ -9,6 +9,10 @@
   <datasources>
     <datasource hasconnection='false' inline='true' name='Parameters' version='9.1'>
       <aliases enabled='yes' />
+      <column datatype='real' name='[Overtime Ratio High (copy)]' param-domain-type='range' role='measure' type='quantitative' value='0.095000000000000001'>
+        <calculation class='tableau' formula='0.095000000000000001' />
+        <range granularity='0.01' max='1.0' min='0.095000000000000001' />
+      </column>
       <column caption='Overtime Ratio High' datatype='real' name='[Overtime Ratio Low (copy)]' param-domain-type='range' role='measure' type='quantitative' value='0.095000000000000001'>
         <calculation class='tableau' formula='0.095000000000000001' />
         <range granularity='0.01' max='1.0' min='0.095000000000000001' />
@@ -688,7 +692,7 @@
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.499421' measure-ordering='alphabetic' measure-percentage='0.468134' show-structure='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.471611' group-percentage='0.0498262' measure-ordering='alphabetic' measure-percentage='0.326767' show-structure='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[:Measure Names]' type='palette'>
@@ -1332,7 +1336,7 @@
         </color-one-way>
       </highlight>
     </window>
-    <window auto-hidden='0' class='worksheet' maximized='1' name='Treemap'>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='Treemap'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -1529,7 +1533,7 @@
         </color-one-way>
       </highlight>
     </window>
-    <window auto-hidden='0' class='worksheet' maximized='0' name='Overtime Ratio(High/Low)'>
+    <window auto-hidden='0' class='worksheet' maximized='1' name='Overtime Ratio(High/Low)'>
       <cards>
         <edge name='left'>
           <strip size='160'>

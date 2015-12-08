@@ -37,7 +37,7 @@ require(extrafont)
 
 ```
 
-#Dataset: Traffic Violations in Montgomery county, Maryland
+#Dataset: Employee Salaries in Montgomery county, Maryland
 
 
 ###Summary of Dataset
@@ -51,9 +51,10 @@ source("./01Data/Dataframes_All.R", echo = FALSE)
 ###Histogram Current Annual Salary
 Made Histogram of Current Annual Salary with average salary line
 ![hist](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram.jpg)
+SQL Query: select range,count(full_name) as count from salary group by range
 ```{r}
  setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
- source("./01Data/Dataframes_All.R", echo = TRUE)
+ source("./01Data/Dataframes_All.R", echo = FALSE)
  
    df3 %>% ggplot(., aes(x = factor(RANGE), y = COUNT)) + geom_bar(position = "identity", stat = "identity")+
         theme(axis.text.x = element_text(angle = 90)) + geom_hline(aes(yintercept=250)) +
@@ -93,7 +94,7 @@ Medical Doctor III - Physician
 Filter by Department of Health and Human Services
 
 #Four Highest Set In
-Used Set in filters to show Salary of four highest paid positions
+Used Set in filters to show Salary of four highest paid positions  
 ![FourHighestSetIn](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\FourHighestSetIn.jpg)
 
 #Overtime Ratio (High/Low)
@@ -118,9 +119,11 @@ Who makes over 150,000 and doesn't work that much overtime?
 
 #Line - Gender
 ##R code for Line graph
+Query: select GENDER, yr, round(sum(Current_annual_salary),0) as sum from salary
+    group by GENDER, yr;
 ```{r}
 setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
-source("./01Data/Dataframes_All.R", echo = TRUE)
+source("./01Data/Dataframes_All.R", echo = FALSE)
 
 df1$year <- substr(df1$DATE_FIRST_HIRED, 0,4)
 
