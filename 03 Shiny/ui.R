@@ -10,7 +10,7 @@ dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Crosstab", tabName = "crosstab", icon = icon("dashboard")),
-      menuItem("Scatterplot", tabName = "scatterplot", icon = icon("th")),
+      menuItem("Line Chart", tabName = "linechart", icon = icon("th")),
       menuItem("Barchart", tabName = "barchart", icon = icon("th"))
     )
   ),
@@ -26,7 +26,7 @@ dashboardPage(
       ),
       
       # Second tab content
-      tabItem(tabName = "scatterplot",
+      tabItem(tabName = "linechart",
         actionButton(inputId = "clicks2",  label = "Click me"),
         plotOutput("distPlot2")
       ),
