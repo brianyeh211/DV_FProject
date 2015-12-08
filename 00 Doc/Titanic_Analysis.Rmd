@@ -1,97 +1,90 @@
 ---
-title: DV_TProject1
+title: DV_FProject
 author: Brian Yeh, Valentina Chen
 output: html_document
 ---
 
 ```{r echo=FALSE, message=FALSE}
-#setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_TProject1")
+setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject/01Data")
 require("jsonlite")
 require("RCurl")
 require(extrafont)
-
 require("ggplot2")
 
 ```
-#Dataset
-###Counts of births by Age of Mother
+
+#Dataset: Traffic Violations in Montgomery county, Maryland
+###Histogram Current Annual Salary
+Made Histogram of Current Annual Salary with average salary line
+![hist](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram.jpg)
 ```{r echo=FALSE}
-source("../01 Data/Dataframes_Births.R", echo = TRUE)
-summary(df)
+# source("../01 Data/Dataframes_Births.R", echo = TRUE)
+# summary(df)
+
 ```
 
-##Barchart
-###Age vs Count for all years (1960-2013)
+###Histogram2
+Histogram of Current annual Salary with overtime pay on dual axis, average lines for both
+![Histogram2](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram2.jpg)
 ```{r}
-source("./01 Data/Dataframes_BarChart.R", echo = TRUE)
-ggplot() + 
-  coord_cartesian() + 
-  scale_x_discrete() +
-  scale_y_continuous(breaks=seq(0,7000000,1000000)) +
-  labs(title='Births Cumulative - By Age') +
-  labs(x=paste("AGE"), y=paste("COUNT")) +
-  layer(data=df1, 
-        mapping=aes(x=AGE, y=COUNT), 
-        stat = "identity",
-        stat_params=list(), 
-        geom="bar",
-        geom_params=list(),
-        position=position_identity()
-  )
-```
-![AgeVCount](../AgeVCount.jpg)
 
-##ScatterPlot
-###Year vs Count for all age groups
-```{r}
-source("../01 Data/Dataframes_ScatterPlot.R", echo = TRUE)
-ggplot() + 
-  coord_cartesian() + 
-  scale_x_continuous() +
-  scale_y_continuous() +
-  labs(x="YEAR", y=paste("COUNT")) +
-  layer(data=df, 
-        mapping=aes(x=as.numeric(as.character(YEAR)), y=COUNT, color=AGE), 
-        stat_params=list(), 
-        geom="point",
-        geom_params=list(), 
-        #position=position_identity()
-        position=position_jitter(width=0.3, height=0)
-  )
+  
 ```
-![YearVCount](../YearVCount.jpg)
+##Packed Bubble
+Which departments are paid the most as shown by size of bubble and color
+![PackedBubbles](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\PackedBubbles.jpg)
 
-##CrossTab
-###Year vs Age
-```{r}
-source("../01 Data/Dataframes_CrossTabs.R", echo = TRUE)
-ggplot() + 
-  coord_cartesian() +
-  scale_x_discrete() +
-  scale_y_discrete() +
-  labs(x=paste("AGE"), y=paste("DECADE")) +
-  layer(data=df, 
-        mapping=aes(x=AGE, y=DECADE, label=COUNT), 
-        stat="identity", 
-        stat_params=list(), 
-        geom="text",
-        geom_params=list(colour="black", size = 3), 
-        position=position_identity()
-  ) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)
-  ) +
-  layer(data=df, 
-        mapping=aes(x=AGE, y=DECADE, fill=DECADE), 
-        stat="identity", 
-        stat_params=list(), 
-        geom="tile",
-        geom_params=list(alpha=0.50), 
-        position=position_identity()
-  )
-```
-![YearVAge](../YearVAge.jpg)
+##TreeMap
+What positions get paid the most as shown by treemap. Includes average salary.
+![Treemap](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Treemap.jpg)
 
-##Blending Data
-###Count of Babies born vs Growth rate of Disposible Income (Joined on Year)
-![BlendingData](../BlendingData.jpg)
+#CrossTab/KPI
+In the Office of Management and Budget, which division/position get the highes percent of their salary from overtime?
+![CrossTabKPI](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\CrosstabKPI.jpg)
+KPI = overtime/current salary
+Filter by Department = Office of Management and Budget
+
+#Four Highest Paid Positions
+Which four positions is the highest paid by average salary?
+![FourHighest](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\FourHighest.jpg)
+
+Chief Aging and Disability Services
+Chief Operating Officer
+Director Department of Health and Human Services
+Medical Doctor III - Physician
+
+Filter by Department of Health and Human Services
+
+#Four Highest Set In
+Used Set in filters to show Salary of four highest paid positions
+![FourHighestSetIn](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\FourHighestSetIn.jpg)
+
+#Overtime Ratio (High/Low)
+Which divisions/positions have high or low Overtime ratios?
+Filter by sheriffs office
+![OvertimeRatio(HighLow)](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\OvertimeRatio(HighLow).jpg)
+
+#Barchart
+Who makes over 150,000 and doesn't work that much overtime?
+![Barchart(high paid)](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Barchart(highpaid).jpg)
+
+#Non-Aggregate Measures
+![Non-Aggregate Measures](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\NAM.jpg)
+
+#ScatterPlot
+![ScatterPlot](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\ScatterPlot.jpg)
+
+#Barchart
+![Bar](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Barchart.jpg)
+
+#Line - Gender
+![Line](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\LineGender.jpg)
+
+#Calculated Difference
+
+![CalculatedDifference](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\CalculatedDifference.jpg)
+
+
+
+
 
