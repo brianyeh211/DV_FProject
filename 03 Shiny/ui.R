@@ -18,15 +18,9 @@ dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "crosstab",
-        actionButton(inputId = "light", label = "Light"),
-        actionButton(inputId = "dark", label = "Dark"),
-        sliderInput("KPI1", "KPI_Low_Max_value:", 
-                    min = 1, max = 4750,  value = 4750),
-        sliderInput("KPI2", "KPI_Medium_Max_value:", 
-                    min = 4750, max = 5000,  value = 5000),
         textInput(inputId = "title", 
                   label = "Crosstab Title",
-                  value = "Birth By Age"),
+                  value = "Overtime Ratio (High/Low)"),
         actionButton(inputId = "clicks1",  label = "Click me"),
         plotOutput("distPlot1")
       ),
