@@ -5,11 +5,35 @@ output: html_document
 ---
 
 ```{r echo=FALSE, message=FALSE}
-setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject/01Data")
+setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
+require("ggplot2")
+
+require("ggthemes")
+
+require("gplots")
+
+require("grid")
+
+require("RCurl")
+
+require("reshape2")
+
+require("tableplot")
+
+require("tidyr")
+
+require("dplyr")
+
+require("jsonlite")
+
+require("extrafont")
+
+require("lubridate")
+require("scales")
 require("jsonlite")
 require("RCurl")
 require(extrafont)
-require("ggplot2")
+
 
 ```
 
@@ -18,8 +42,9 @@ require("ggplot2")
 Made Histogram of Current Annual Salary with average salary line
 ![hist](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram.jpg)
 ```{r echo=FALSE}
-# source("../01 Data/Dataframes_Births.R", echo = TRUE)
-# summary(df)
+setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
+source("./01Data/Dataframes_All.R", echo = TRUE)
+ summary(df1)
 
 ```
 
@@ -32,7 +57,7 @@ Histogram of Current annual Salary with overtime pay on dual axis, average lines
 ```
 ##Packed Bubble
 Which departments are paid the most as shown by size of bubble and color
-![PackedBubbles](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\PackedBubbles.jpg)
+![PackedBubbles](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Packed Bubbles3.jpg)
 
 ##TreeMap
 What positions get paid the most as shown by treemap. Includes average salary.
@@ -41,17 +66,18 @@ What positions get paid the most as shown by treemap. Includes average salary.
 #CrossTab/KPI
 In the Office of Management and Budget, which division/position get the highes percent of their salary from overtime?
 ![CrossTabKPI](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\CrosstabKPI.jpg)
-KPI = overtime/current salary
+  
+KPI = overtime/current salary  
 Filter by Department = Office of Management and Budget
 
 #Four Highest Paid Positions
 Which four positions is the highest paid by average salary?
 ![FourHighest](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\FourHighest.jpg)
 
-Chief Aging and Disability Services
-Chief Operating Officer
-Director Department of Health and Human Services
-Medical Doctor III - Physician
+Chief Aging and Disability Services  
+Chief Operating Officer  
+Director Department of Health and Human Services  
+Medical Doctor III - Physician  
 
 Filter by Department of Health and Human Services
 
@@ -78,6 +104,23 @@ Who makes over 150,000 and doesn't work that much overtime?
 ![Bar](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Barchart.jpg)
 
 #Line - Gender
+##R code for Line graph
+```{r}
+setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
+source("./01Data/Dataframes_All.R", echo = TRUE)
+
+df1$year <- substr(df1$DATE_FIRST_HIRED, 0,4)
+
+            df1 %>% group_by(GENDER, year) %>% summarise(sum=sum(CURRENT_ANNUAL_SALARY)) %>% ggplot(data=., aes(x=year, y=sum, group=GENDER, colour=GENDER)) +
+        geom_line() + ylab("Current Annual Salary") +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_y_continuous(limits=c(0, 25000000), labels= comma)
+
+```
+
+
+      
+      
 ![Line](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\LineGender.jpg)
 
 #Calculated Difference
