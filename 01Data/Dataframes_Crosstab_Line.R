@@ -1,7 +1,7 @@
   require(scales)
 df$year = substr(df$DATE_FIRST_HIRED, 0,4)
 
-      df %>% group_by(GENDER, year) %>% summarise(sum=sum(CURRENT_ANNUAL_SALARY)) %>% ggplot(data=., aes(x=yr, y=sum, group=GENDER, colour=GENDER)) +
+      df %>% group_by(GENDER, year) %>% summarise(sum=sum(CURRENT_ANNUAL_SALARY)) %>% ggplot(data=., aes(x=year, y=sum, group=GENDER, colour=GENDER)) +
         geom_line() + ylab("Current Annual Salary") +
       theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
       scale_y_continuous(limits=c(0, 25000000), labels= comma)

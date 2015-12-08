@@ -38,23 +38,34 @@ require(extrafont)
 ```
 
 #Dataset: Traffic Violations in Montgomery county, Maryland
-###Histogram Current Annual Salary
-Made Histogram of Current Annual Salary with average salary line
-![hist](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram.jpg)
+
+
+###Summary of Dataset
 ```{r echo=FALSE}
 setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
-source("./01Data/Dataframes_All.R", echo = TRUE)
+source("./01Data/Dataframes_All.R", echo = FALSE)
  summary(df1)
 
 ```
 
+###Histogram Current Annual Salary
+Made Histogram of Current Annual Salary with average salary line
+![hist](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram.jpg)
+```{r}
+ setwd("C:/Users/Brian Yeh/Github/DataVisualization/DV_FProject")
+ source("./01Data/Dataframes_All.R", echo = TRUE)
+ 
+   df3 %>% ggplot(., aes(x = factor(RANGE), y = COUNT)) + geom_bar(position = "identity", stat = "identity")+
+        theme(axis.text.x = element_text(angle = 90)) + geom_hline(aes(yintercept=250)) +
+    geom_text(aes(0,245,label = "Average", vjust = -2, hjust = -.18))
+```
+
+[Shiny URL](https://by2578.shinyapps.io/ShinyFinal)
+
 ###Histogram2
 Histogram of Current annual Salary with overtime pay on dual axis, average lines for both
 ![Histogram2](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Histogram2.jpg)
-```{r}
 
-  
-```
 ##Packed Bubble
 Which departments are paid the most as shown by size of bubble and color
 ![PackedBubbles](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Packed Bubbles3.jpg)
@@ -90,6 +101,8 @@ Which divisions/positions have high or low Overtime ratios?
 Filter by sheriffs office
 ![OvertimeRatio(HighLow)](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\OvertimeRatio(HighLow).jpg)
 
+[Shiny URL](https://by2578.shinyapps.io/ShinyFinal)
+
 #Barchart
 Who makes over 150,000 and doesn't work that much overtime?
 ![Barchart(high paid)](C:\Users\Brian Yeh\Github\DataVisualization\DV_FProject\01Data\Barchart(highpaid).jpg)
@@ -111,13 +124,13 @@ source("./01Data/Dataframes_All.R", echo = TRUE)
 
 df1$year <- substr(df1$DATE_FIRST_HIRED, 0,4)
 
-            df1 %>% group_by(GENDER, year) %>% summarise(sum=sum(CURRENT_ANNUAL_SALARY)) %>% ggplot(data=., aes(x=year, y=sum, group=GENDER, colour=GENDER)) +
+df1 %>% group_by(GENDER, year) %>% summarise(sum=sum(CURRENT_ANNUAL_SALARY)) %>% ggplot(data=., aes(x=year, y=sum, group=GENDER, colour=GENDER)) +
         geom_line() + ylab("Current Annual Salary") +
       theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
       scale_y_continuous(limits=c(0, 25000000), labels= comma)
 
 ```
-
+[Shiny URL](https://by2578.shinyapps.io/ShinyFinal)
 
       
       
