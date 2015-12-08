@@ -81,18 +81,17 @@ Group By Range;"
             plot3 <- ggplot() + 
               coord_cartesian() + 
               scale_x_discrete() +
-              scale_y_discrete() +
+              scale_y_continuous() +
               labs(title='Histogram Current Annual Salary') +
-              labs(x="RANGE", y="COUNT") +
+              labs(x=paste("RANGE"), y=paste("COUNT")) +
               layer(data=df3(), 
                     mapping=aes(x=RANGE, y=COUNT), 
                     stat = "identity",
                     stat_params=list(), 
-                    geom="histogram",
+                    geom="bar",
                     geom_params=list(),
                     position=position_identity()
-              ) +
-              geom_vline(yintercept=245.945)
+              )
               plot3
       })
 })
